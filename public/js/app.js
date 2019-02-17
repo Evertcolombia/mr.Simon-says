@@ -26,8 +26,24 @@ function nexteLevel (actualLevel) {
 	}
 	setTimeout(() => alert(`Nivel: ${actualLevel + 1}`), 1500)
 
-	let i = 0
-	let actualKey = $keys[i]
+	let $i = 0
+	/*la tecla actual es como la ronda actual ya que si pasa el primer nivel $i sera 1 y tendra
+	que tocar la tecla anterior y la nueva*/
+	let $actualKey = $keys[$i]
+	console.log($keys, $actualKey)
+
+	window.addEventListener('keydown', onKeyDown)
+
+	function onKeyDown (event) {
+		if (event.keyCode == $actualKey) {
+			alert('Correct Key')
+			$i++
+		}
+		else {
+			window.removeEventListener('keydown', onKeyDown)
+			setTimeout(() => alert('Wrong key') , 1000)			
+		}
+	}
 }
 
 nexteLevel(0)
