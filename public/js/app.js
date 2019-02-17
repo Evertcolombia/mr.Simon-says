@@ -19,3 +19,15 @@ function generateLevels ($levels) {
 //console.log(generateLevels($levels))
 //console.log($keys)
 
+function nexteLevel (actualLevel) {
+	if (actualLevel == $levels) {
+		console.log('you Win')
+
+	}
+	setTimeout(() => alert(`Nivel: ${actualLevel + 1}`), 1500)
+
+	let i = 0
+	let actualKey = $keys[i]
+}
+
+nexteLevel(0)
