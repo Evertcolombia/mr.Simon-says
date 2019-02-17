@@ -1,0 +1,128 @@
+//Tenemos un index.html con un teclado virtual, un css para el mismo, y usamos una libreria para mostrar alertas, el js es puro
+
+
+1--//creamos nuestro app.js y para comenzar pensemos en la idea del juego, debe generar un array que se llenara con numeros entre 65 y 90
+
+//para esto crearemos dos funciones, una para que genere un numero aleatorio entre 65 y 90 que son el indice de las teclas alfabeticas en nuestro teclado virtual
+
+//retorna la operacion  matematica de esta funcion sera pasar Math.random(devuelve un numero entre 0 y uno como 0.3) * (el maximo numero de indice - el minimo numero de indice) + el minimo numero de indice, pero no lo entrega con decimales necesitamos pasarlo al entero mas cercano, usamos el metodo Math.round en la operacion, y asi obtenemos un numero aleatorio entre 65 y 90 que es el indice del teclado
+
+
+2--//Ahora nuestra segunda funcion debera generar esta funcion que nos retorna un numero,la misma cantidad de veces que los niveles del juego e insertarlos en un array
+
+//para esto el pasamos los nuveles, queremos que esta funcion entonces nos retorne un nuevo array con numeros aleatorios para los niveles, estos numeros seran las teclas que debe presionar el jugador
+
+//usamos el metodo new Array (crea un nuevo array con el numero que le pasemos aqui, queremos que tenga tantas posiciones como niveles), entonces nos retorna un array con nivele de posiciones pero sin un indice ni nada en el para identificar cada uno
+
+//ahora le concatenamos le metodo fill(que llenara cada uno de los elementos con lo que le pasemos, entonces que lo llene con un 0) asi tendremos un nuevo array con posiciones tantas como niveles y estas todas tiene un 0 como contenido, pero ya tienen indice
+
+//ya con este array com oqueremos que contenga las teclas aleatorias, entonces le concatenamos el metodo map(esta nos devolvera un nuevo array cumpliendo la funcion que le pasemos como llamado), es decir le pasamos la funcion que genera el numero aleatorio y por cada  indice en el array corre la funcion obtiene el numero y lo guarda en un nuevo array que nos retorna al finalizar
+
+//para poder llamarlo debemos crear una variable teclas  y le pasamos  el llamado a la funcion que genera el array de teclas pasandole los niveles 
+
+
+3--//El siguiente paso es generar los niveles alrededor de este array con las teclas que debe presionar, crearemos u na funcion que pase de nivel y recibe el nivelActual
+
+//Lo  primero en esta funcion seria comprobar si el nivel actual es igual a los niveles del juego que nos retorne un alert de ganaste y termine la ejecucion
+
+//mas abajo si esto no sucede crearemos dos variables una  i referenciando un indice y le pasamos 0 comovalor, otro que represente la tecla actual, la de la ronda y como valor le pasamos el array de las teclas como indice le pasamos el i que acabamos de crear que sera 0, la tecla en el indice cero del array
+
+
+//vamos ahora a agregar un evento a window, el document, el evento se llama keydown y se activa cuando se presione una tecla, como  callback le pasamos el llamado a una funcion onkeydown
+
+//creamos esta funcion que recibe un evento, el que sucede cuando se presione una tecla
+
+//vamos a preguntar si el keyCode del evento es igual a la teclaActual que recordemos seria el array con el indice en que vamos de nivel la tecla actual, si esto es asi que sume en 1 la variable i, entonces i ya pasaria a ser 1
+
+// si no entonces le removemos el vento que esta en window, y usaremos un timer que se ative en un segundo, en este le pasamos un alert que diga que perdio
+
+//y fuera de la funcion padre entonces tambien llamamos a siguiente nivel pasandole 0 para que se inicialize en 0 de nuevo el juego
+
+
+4--//Ahora ya tenemos funcionalidad para generar un nivel, y presonar la tecla correcta  o incorrecta, vamos ahora  acrear dentro del ciclo que pregunta si la tecla fue la correcta, una nueva pregunta, si i ahora es mayor al nivel actual, significa que avanza de nivel entonces primero remvemos el envento de keydown y luego usamos un timer para llamar al la funcionpara generar el siguiente nivel, pasnadole como nivel actual lo que trae i, y que lo haga despues de segundo y medio,
+
+
+//fuera de este bucle pero dentro del que esta este, actualizamos la tecla actual pasandole teclas en i osea que si toco la tecla correcta, tecla actual se actualiza a la posicion que tenga i dentro del array de las teclas
+
+asi por ejemplo si pasa de nivel 0 a 1 son dos teclas que debe presionar en el 1,  porque ahora la tecla actual recibe el array en la posicion i y esta avanzo una casilla
+
+5--//vamos ahora en la funcion del siguiente nivel luego de preguntar si ya gano entnces declaremos un timeout que nos muestre un alert y le pasamos que nos muestre nivel: el nivel actual + 1 porque el array comienza en cero entonces si es nivel uno saldria nivel 0 si no le ponemos + 1
+
+//ya tenemos como tal la logica del juego generamos un array con 15 niveles, tenemos una funcion que genera los niveles, le pasamos el nivel actual que al iniciar seria 0,dentro creamos dos variables una con un indice que inicia en cero, un contador, y un nivel actual que recibe el array con el indice en i osea en 0, luego uno y asi, el plan es que cada nivel tiene que tocar las teclas del nivel pasado y el nivel en que esta para pasarlo, mas abajo creamos una funcion que sera la que sucede cuando pase el evento de presionar la tecla
+
+//ahi preguntamos si la tecla presionada fue igual a la tecla que debia presionar, de esta manera si fue asi i aumenta en uno nuestro contador
+
+//ahi mismo preguntamos si ahora i es mayor al nivel actual que es el qje recibe la funcion en su llamado,si es asi remueve el vento, y vuelve a llamar al siguiente nivel pero pasandole ahora i como nivel actual
+
+//y luego de eso la tecla actual recibe ahora las teclas pero en el i por lo que tambien paso de nivel,
+
+//si no paso y fue incorrecto que remueva el evento y llame a siguiente nivel otra vez desde cero
+
+
+6--//Ahora vamos a crear funcionalidad primero para obtener  un elemento por su keyCode , esta funcion recibe un keycode y retorna una seleccion del documento con querySelector,  selecciona el dataset que este guardado en el dom con el `[data-key="${keyCode}"]` osea el elemento con el keyCode igual al que recibio  la funcion
+
+//ya con este elemento seleccionado craremos una funcion que nos sirva para activar la tecla esta recive un keyCode  lo que hace es, primero obtener en una variable element un llamado a la funcion que obtiene el keyCode igual al que le pasamos, y a este llamado le pasamos el leyCode que trae esta funcion
+
+//como ese llamado nos devuelve ese elemento en element, vamos a agregarle una clase, esta sera active que le dara cierto brillo
+
+//luego un timer que llame a una funcion que desactive el elemento con un tiempo de unsegundo
+
+//escribimos abajo esta funcion de desactivar que lo que hace es recibir un elemento, y a este elemento le deja solo la clase 'key', asi ya no tendra active
+
+//ahora vamos a la funcion del siguiente nivel y ahi vamos a crear un ciclo, este debera establecer un tiempo para que se activen las teclas que debe tocar, dependiendo del nivel actual ya que si es el nivel uno es solo una tecla, si es nivel dos, serian dos teclas, la uno y la dos y asi, entonces le decimos que i sea cero y que mientras que i sea menor o igual al nivel actual i aumente en uno
+
+
+//dentro de este creamos un timer que llame a activate y le pasamos el array con las teclas, en el indice que trae i de esta forma si solo es una se activa esa, pero si son mas de una tendremos que adecuar un intervalo de tiempo entre cada una
+
+//para lograrlo en el tiempo de este timer, que sea un segundo * (i + 1) + segundo y medio, asi creamos un intervalo por tecla para cuando sea mas del nivel uno
+
+
+7--//Ya con esto nos activa las teclas a tocar, pero queremos tambie agregarle clases cuando presionemos las teclas de manera que si escorrecta se ponga verde, y si es incorrecto rojo
+
+//para esto vamos a ir a la funcion de activar la tecla y le pasaremos como parametro un objeto vacio un opts, 
+dentro de esta funcion declaramos un condicional que pregunte si  opts tiene un atributo success en su llamado, si es  asi entonces agregue al elemento, a esa tecla la clase success, 
+
+//tambien si el opts trae un atributo fail en su llamado que la clase agregada sea fail, y luego dejamos el llamado a deactivate, para que siempre se desactiven
+
+//ya con esto donde llevemos llamar esta funcion pasandole un evento y un opts de si estuvo bien o mal ? pues dnde se presiona la tecla, vamos a esa funcion y donde preguntamos si la tecla presionada es igual a la tecla de turno, si es true, entonces que ahora muestre la tecla en verde, llamamos a esta funcion y le pasamos el elemento y como segundo un obejto donde se declara una propiedad success en true, de esta forma el va a saber que opts trae true y como fue la tecla correcta la pinta en verde
+
+//vamos al condicinal contrario si no fue la tecla correcta y ahi de primero le ponemos el llamado a active, pasandole el elemento y en opts esta vez el atributo seria fail en true, asi la pintaria en rojo cuando  fue mal
+
+
+8--//Ya tenemos la funcionalidad de nuestro juego ahora agregaremos unos alert mejores, con la libreria sweetAlert, para esto tenemos ese archivo de sweet alert y el cdn en el html
+
+//comencemos por la alerta de  si gano, donde se pregunta eso  si es true que retorne la alerta de ganador, con sweet alert para esot hacemos un llamado a la funcion de sweet alert swal(recibe un objeto con la config del alert), pongamos dentro de este un atributo title, con el mensaje de ganaste, y un type, con el string success de ganador
+
+
+//tomarmos otra para mostrar el nivel en el que estamos vamos a ese timer, y en lugar del alert ahora que llamae al metodo de sweet alert, en el objeto recive como titulo lo del nivel actual, escondamos boton en esta alerta, para eso usamos la propiedad showConfirmButton en false, y una propiedad de timer con valor de 1300 
+
+//la ultima la ponemos con la logica de , si no es correcta la tecla presionada, en el, timer usaremos el metodo swal
+con  la propiedad title, de perdio, una propiedad text que pregunte si quiere jugar de nuevo, un showCancelButton con valor de true, un confirmButtonText con vlaor de si, un cancelButtonText con un valor de no, un closeOnConfirm con valor de true
+
+//tambien luego del objeto pero sin salirse de este swal, ponemos otro atributo una funcion anonima que recibe un ok, y dentro de este preguntamos si ok fue en true si eligio jugar de nuevo,  que  las teclas vuelvan a tener el llamado a generar las teclas , pasandole los niveles que debe tener, y  llamamos a siguiente nivel pasandole 0 como nivelActual para que inicie de nuevo
+
+esta es la version 0.0.1 con funcionalidad minima
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3--//necesitamos crear ahora una funcion que obtenga un elemento, por el dato que tenga  en el dataSat del input,  este elemento es el keyCode entonces esta funcion retornara un llamado a document para que me haga un querySelector y le pasamos que seleccione el elemento en data set (`[data-key="${keyCode}"]`), entonces al llamar esta funcion le pasamos el keycode que equeremos y nos retorna el elemento del dom con ese keyCode, esta funcion se llama cuando se presione una tecla
+
+
+3--//Ahora vamos a crear funcionalidad par aque cuando se presione una tecla, suceda un evento, el evento 'keydown', este debe estar referenciadocon window que es quien sabe cuando se presiona la tecla, y cuando suceda llamara al metodo onkeydown 
+
+//entonces a window le vamos a pasar un evento de escucha,  'keydowm', este recibe el llamado a una funcion, onkeydown
+
