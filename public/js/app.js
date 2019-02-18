@@ -3,10 +3,17 @@ let $keys = generateLevels($levels)
 
 function nextLevel (actualLevel) {
 	if (actualLevel == $levels) {
-		console.log('you Win')
+		return swal({
+			title: 'You win',
+			type: 'success'
+		})
 
 	}
-	setTimeout(() => alert(`Nivel: ${actualLevel + 1}`), 1000)
+	setTimeout(() => swal({
+		title: `Level: ${actualLevel + 1}`,
+		showConfirmButton: false,
+		timer: 1300
+	}), 1000)
 
 	for (let i=0; i <= actualLevel; i++) {
 		setTimeout(() => activate($keys[i]), 1000 * (i + 1) + 1500)
@@ -34,10 +41,20 @@ function nextLevel (actualLevel) {
 		} else {
 			activate(event.keyCode, { fail: true })
 			window.removeEventListener('keydown', onKeyDown)
-			setTimeout(() => {
-				$keys = generateLevels($levels)
-				nextLevel(0)
-				}, 1000)			
+			setTimeout(() => swal({
+				title: 'You lose',
+				text: 'Play again',
+				showCancelButton: true,
+				confirmButtonText: 'Yes',
+				cancelButtonText: 'Not',
+				closeOnConfirm: true 
+			
+			}, function (ok){
+				if (ok) {
+					$keys = generateLevels($levels)
+					nextLevel(0)
+				}
+			}), 1000)			
 		}
 	}
 }
