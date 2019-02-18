@@ -1,4 +1,4 @@
-//Tenemos un index.html con un teclado virtual, un css para el mismo, y usamos una libreria para mostrar alertas, el js es puro
+1//Tenemos un index.html con un teclado virtual, un css para el mismo, y usamos una libreria para mostrar alertas, el js es puro
 
 
 1--//creamos nuestro app.js y para comenzar pensemos en la idea del juego, debe generar un array que se llenara con numeros entre 65 y 90
@@ -48,7 +48,7 @@ asi por ejemplo si pasa de nivel 0 a 1 son dos teclas que debe presionar en el 1
 
 5--//vamos ahora en la funcion del siguiente nivel luego de preguntar si ya gano entnces declaremos un timeout que nos muestre un alert y le pasamos que nos muestre nivel: el nivel actual + 1 porque el array comienza en cero entonces si es nivel uno saldria nivel 0 si no le ponemos + 1
 
-//ya tenemos como tal la logica del juego generamos un array con 15 niveles, tenemos una funcion que genera los niveles, le pasamos el nivel actual que al iniciar seria 0,dentro creamos dos variables una con un indice que inicia en cero, un contador, y un nivel actual que recibe el array con el indice en i osea en 0, luego uno y asi, el plan es que cada nivel tiene que tocar las teclas del nivel pasado y el nivel en que esta para pasarlo, mas abajo creamos una funcion que sera la que sucede cuando pase el evento de presionar la tecla
+//ya tenemos como tal la logica del juego generamos un array con 15 niveles, tenemos una funcion que genera los niveles, le pasamos el nivel actual que al iniciar seria 0,dentro creamos dos variables una con un indice que inicia en cero, un contador, y un nivel actual que recibe el array con el indice en i osea en 0, luego uno y asi, el plan es que cada nivel tiene que tocar las teclas del nivel pasado y el nivel en que esta para pasarlo (porque estamos recorriendo el array en cada nivel), mas abajo creamos una funcion que sera la que sucede cuando pase el evento de presionar la tecla
 
 //ahi preguntamos si la tecla presionada fue igual a la tecla que debia presionar, de esta manera si fue asi i aumenta en uno nuestro contador
 
