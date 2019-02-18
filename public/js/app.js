@@ -1,5 +1,48 @@
 const $levels = 15;
-const $keys = generateLevels($levels)
+let $keys = generateLevels($levels)
+
+function nextLevel (actualLevel) {
+	if (actualLevel == $levels) {
+		console.log('you Win')
+
+	}
+	setTimeout(() => alert(`Nivel: ${actualLevel + 1}`), 1000)
+
+	for (let i=0; i <= actualLevel; i++) {
+		setTimeout(() => activate($keys[i]), 1000 * (i + 1) + 1500)
+	}
+
+	let $i = 0
+	/*la tecla actual es como la ronda actual ya que si pasa el primer nivel $i sera 1 y tendra
+	que tocar la tecla anterior y la nueva*/
+	let $actualKey = $keys[$i]
+	//console.log($keys, $actualKey)
+
+	window.addEventListener('keydown', onKeyDown)
+
+	function onKeyDown (event) {
+		if (event.keyCode == $actualKey) {
+			activate(event.keyCode, { success: true })
+			$i++
+
+			if ($i > actualLevel) {
+				window.removeEventListener('keydown', onKeyDown)
+				setTimeout(() => 	nextLevel($i), 1500)
+			}
+
+			$actualKey = $keys[$i]
+		} else {
+			activate(event.keyCode, { fail: true })
+			window.removeEventListener('keydown', onKeyDown)
+			setTimeout(() => {
+				$keys = generateLevels($levels)
+				nextLevel(0)
+				}, 1000)			
+		}
+	}
+}
+
+nextLevel(0)
 
 function getRandomNum () {
 	const min = 65
@@ -19,56 +62,23 @@ function generateLevels ($levels) {
 //console.log(generateLevels($levels))
 //console.log($keys)
 
-function nextLevel (actualLevel) {
-	if (actualLevel == $levels) {
-		console.log('you Win')
-
-	}
-	setTimeout(() => alert(`Nivel: ${actualLevel + 1}`), 1000)
-
-	let $i = 0
-	/*la tecla actual es como la ronda actual ya que si pasa el primer nivel $i sera 1 y tendra
-	que tocar la tecla anterior y la nueva*/
-	let $actualKey = $keys[$i]
-	//console.log($keys, $actualKey)
-
-	window.addEventListener('keydown', onKeyDown)
-
-	function onKeyDown (event) {
-		if (event.keyCode == $actualKey) {
-			alert('Correct Key')
-			$i++;
-
-			if ($i > actualLevel) {
-				window.removeEventListener('keydown', onKeyDown)
-				setTimeout(() => 	nextLevel($i), 500)
-			}
-
-			$actualKey = $keys[$i]
-		}
-		else {
-			window.removeEventListener('keydown', onKeyDown)
-			setTimeout(() => {
-				nextLevel(0)
-				alert('Wrong key')}, 1000)			
-		}
-	}
-}
-
 function getElementByKeyCode (keyCode) {
 	return document.querySelector(`[data-key='${keyCode}']`)
 }
 
-function activate (keyCode) {
+function activate (keyCode, opts = {}) {
 	let $element = getElementByKeyCode(keyCode)
 	$element.classList.add('active')
+
+	if (opts.success) {
+		$element.classList.add('success')
+	}else if (opts.fail) {
+		$element.classList.add('fail')
+	}
 
 	setTimeout(() => deactivate($element), 500)
 }
 
 function deactivate ($element) {
-	$element.classList.remove('active')
+	$element.className ='key'
 }
-
-
-nextLevel(0)

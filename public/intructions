@@ -84,7 +84,7 @@ dentro de esta funcion declaramos un condicional que pregunte si  opts tiene un 
 
 //tambien si el opts trae un atributo fail en su llamado que la clase agregada sea fail, y luego dejamos el llamado a deactivate, para que siempre se desactiven
 
-//ya con esto donde llevemos llamar esta funcion pasandole un evento y un opts de si estuvo bien o mal ? pues dnde se presiona la tecla, vamos a esa funcion y donde preguntamos si la tecla presionada es igual a la tecla de turno, si es true, entonces que ahora muestre la tecla en verde, llamamos a esta funcion y le pasamos el elemento y como segundo un obejto donde se declara una propiedad success en true, de esta forma el va a saber que opts trae true y como fue la tecla correcta la pinta en verde
+//ya con esto donde llevemos llamar esta funcion pasandole un evento y un opts de si estuvo bien o mal ? pues donde se presiona la tecla, vamos a esa funcion y donde preguntamos si la tecla presionada es igual a la tecla de turno, si es true, entonces que ahora muestre la tecla en verde, llamamos a esta funcion y le pasamos el elemento y como segundo un obejto donde se declara una propiedad success en true, de esta forma el va a saber que opts trae true y como fue la tecla correcta la pinta en verde
 
 //vamos al condicinal contrario si no fue la tecla correcta y ahi de primero le ponemos el llamado a active, pasandole el elemento y en opts esta vez el atributo seria fail en true, asi la pintaria en rojo cuando  fue mal
 
